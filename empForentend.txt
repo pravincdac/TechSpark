@@ -1,0 +1,86 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+
+function EmployeeFrontend() {
+  // Use state variables to store the form data and list of deliveries
+  const [formData, setFormData] = useState({
+    productName: '',
+    address: '',
+    agent: '',
+  });
+  const [deliveries, setDeliveries] = useState([]);
+
+  // This function is called when the form is submitted
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Send a request to the server to create the new delivery
+    axios.post('/api/deliveries', formData)
+      .then(res => {
+        // Update the list of deliveries
+        setDeliveries([...deliveries, res.data]);
+      });
+  };
+
+  // This function is called when the input fields in the form are changed
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  // This function is called when a delivery in the table is clicked
+  const handleClick = (productName) => {
+    // Send a request to the server to get the delivery status for the specified product
+    axios.get(`/api/deliveries/${productName}`)
+      .then(res => {
+        // Display the delivery status in an alert
+        alert(`Status: ${res.data.status}`);
+      });
+  };
+
+  return (
+    <div>
+      <h1>Employee Frontend</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Product Name:
+          <input type="text" name="productName" value={formData.productName} onChange={handleChange} />
+        </label>
+        <br />
+        <label>
+          Address:
+          <input type="text" name="address" value={formData.address} onChange={handleChange} />
+        </label>
+        <br />
+        <label>
+          Agent:
+          <select name="agent" value={formData.agent} onChange={handleChange}>
+            <option value="John Smith">John Smith</option>
+            <option value="Jane Smith">Jane Smith</option>
+            <option value="Bob Smith">Bob Smith</option>
+          </select>
+        </label>
+        <br />
+        <input type="submit" value="Submit" />
+      </form>
+      <br />
+      <table>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Address</th>
+            <th>Agent</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {deliveries.map((delivery) => (
+            <tr key={delivery.productName} onClick={() => handleClick(delivery.productName)}>
+              <td>{delivery.productName}</td></tr>
+            <tr key={delivery.Address} onClick={() => handleClick(delivery.Address)}>
+              <td>{delivery.Address}</td></tr>
+              <tr key={delivery.Agent} onClick={() => handleClick(delivery.Agent)}>
+              <td>{delivery.Address}</td></tr>
+              <tr key={delivery.Status} onClick={() => handleClick(delivery.Status)}>
+              <td>{delivery.Status}</td></tr>
+        </tbody>
+         </table>
+              </div>

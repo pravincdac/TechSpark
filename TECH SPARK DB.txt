@@ -1,0 +1,47 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| author             |
+| book_author        |
+| book_publisher     |
+| cdac               |
+| information_schema |
+| mydb               |
+| mysql              |
+| newdb              |
+| performance_schema |
+| rbdb               |
+| sqdb               |
+| sys                |
++--------------------+
+12 rows in set (0.03 sec)
+
+mysql> use mysql;
+Database changed
+mysql> create table Employee( ProductName varchar(30), Address varchar(30), Agent varchar(30), Status varchar(30));
+Query OK, 0 rows affected (0.35 sec)
+
+mysql> desc Employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| ProductName | varchar(30) | YES  |     | NULL    |       |
+| Address     | varchar(30) | YES  |     | NULL    |       |
+| Agent       | varchar(30) | YES  |     | NULL    |       |
+| Status      | varchar(30) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
